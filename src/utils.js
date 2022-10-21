@@ -19,6 +19,18 @@ function getUserHome() {
   return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
 }
 
+/**
+ * @typedef TimeLine
+ * @type {Record<string, unknown>}
+ * @property {moment.Moment} date
+ * @property {string} text
+ */
+
+/**
+ *
+ * @param {string} txt
+ * @returns {TimeLine[]}
+ */
 function parseTimeline(txt) {
   const splittedTimeline = txt.split('\n').filter(str => str[0] !== '#');
   const timeline = splittedTimeline.map(i => i.split('\t')).filter(i => i.length === 2);
@@ -41,13 +53,20 @@ function hook(command) {
   });
 }
 
+/**
+ * Check actual version of package
+ * @returns {Promise<void>}
+ */
 async function checkUpdates() {
-  const result = await axios.get('https://registry.npmjs.org/twtxt-cli');
-  const data = result.data
-  const latest = data && data['dist-tags'] && data['dist-tags'].latest;
-  const current = packageData.version;
-  if (current !== latest) {
-    console.log(`You version (${current}) is outdated. Install actual version: ${latest} with command 'npm install -g twtxt-cli'`)
+  try {
+    const result = await axios.get('https://registry.npmjs.org/twtxt-cli');
+    const data = result.data
+    const latest = data && data['dist-tags'] && data['dist-tags'].latest;
+    const current = packageData.version;
+    if (current !== latest) {
+      console.log(`You version (${current}) is outdated. Install actual version: ${latest} with command 'npm install -g twtxt-cli'`)
+    }
+  } catch {
   }
 }
 

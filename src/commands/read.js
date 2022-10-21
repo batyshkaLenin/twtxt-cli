@@ -3,6 +3,10 @@ const axios = require("axios");
 const { parseTimeline } = require("../utils");
 const { getConfig } = require("../config");
 
+/**
+ * Get following users feed
+ * @returns {Promise<void>}
+ */
 async function getFeed() {
   const config = getConfig();
 

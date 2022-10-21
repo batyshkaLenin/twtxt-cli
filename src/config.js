@@ -2,6 +2,25 @@ const fs = require("fs");
 const { getUserHome } = require("./utils");
 
 /**
+ * @typedef FollowItem
+ * @type {Record<string, unknown>}
+ * @property {string} nick
+ * @property {string} url
+ */
+
+/**
+ * @typedef Config
+ * @type {Record<string, unknown>}
+ * @property {string} nick
+ * @property {string} [url]
+ * @property {string} [description]
+ * @property {string} [avatar]
+ * @property {string} location
+ * @property {string} hook
+ * @property {FollowItem[]} following
+ */
+
+/**
  * Get configuration file path
  * @returns {string}
  */
@@ -16,6 +35,11 @@ function getConfigPath() {
   return configPath;
 }
 
+/**
+ * Update config file
+ * @param {Config} config
+ * @returns {void}
+ */
 function updateConfig(config) {
   const configPath = getConfigPath();
   try {
@@ -25,6 +49,10 @@ function updateConfig(config) {
   }
 }
 
+/**
+ * Get actual config
+ * @returns {Config}
+ */
 function getConfig() {
   const configPath = getConfigPath();
   try {

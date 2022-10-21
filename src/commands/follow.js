@@ -1,5 +1,11 @@
 const { getConfig, updateConfig } = require("../config");
 
+/**
+ * Follow user feed
+ * @param {string} nick
+ * @param {string} url
+ * @returns {void}
+ */
 function follow(nick, url) {
   const config = getConfig();
 

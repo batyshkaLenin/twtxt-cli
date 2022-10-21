@@ -4,12 +4,21 @@ const fs = require("fs");
 const { getConfig } = require("../config");
 const { parseTimeline } = require('../utils');
 
+/**
+ * Get user twt feed
+ * @returns {TimeLine[]}
+ */
 function getCurrentTimeline() {
   const config = getConfig();
   const currentTimelineText = fs.readFileSync(config.location).toString();
   return parseTimeline(currentTimelineText)
 }
 
+/**
+ * Publish new twt
+ * @param {string} text
+ * @returns {void}
+ */
 function publish(text) {
   const MAX_CHARS = 140;
 

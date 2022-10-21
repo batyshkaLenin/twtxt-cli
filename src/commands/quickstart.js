@@ -3,6 +3,10 @@ const { getUserHome, getUserName } = require('../utils');
 const fs = require('fs');
 const { updateConfig } = require("../config");
 
+/**
+ * First configuration app
+ * @returns {void}
+ */
 function quickstart() {
   const rl = readline.createInterface({
     input: process.stdin,
