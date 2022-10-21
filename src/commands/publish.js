@@ -42,6 +42,7 @@ function publish(text) {
   const utilName = `${packageData.name}-${packageData.version}`;
   const meta = `# Created with ${utilName}
 #
+# You can install the same client as this user with the command 'npm install -g twtxt-cli'.
 # Learn more about twtxt-cli https://github.com/batyshkaLenin/twtxt-cli
 #
 # nick        = ${config.nick}

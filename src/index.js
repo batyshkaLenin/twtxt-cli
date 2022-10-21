@@ -4,7 +4,7 @@ const { Command } = require('commander');
 const packageData = require('../package.json');
 const { getConfig } = require('./config');
 const { hook, checkUpdates } = require('./utils');
-const { quickstart, read, follow, publish } = require("./commands");
+const { quickstart, read, follow, unfollow, publish } = require("./commands");
 
 const program = new Command();
 
@@ -23,6 +23,11 @@ function cli() {
     .argument('<nick>', 'Nick of twtxt user')
     .argument('<url>', 'URL of twtxt blog')
     .action((nick, url) => follow(nick, url));
+
+  program.command('unfollow')
+    .description('Unfollow twtxt feed')
+    .argument('<nick or url>', 'Nick or url of twtxt user')
+    .action((nickOrUrl) => unfollow(nickOrUrl));
 
   program.command('publish')
     .description('Add new twt')
