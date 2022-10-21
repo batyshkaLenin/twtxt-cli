@@ -3,7 +3,7 @@
 const { Command } = require('commander');
 const packageData = require('../package.json');
 const { getConfig } = require('./config');
-const { hook } = require('./utils');
+const { hook, checkUpdates } = require('./utils');
 const { quickstart, read, follow, publish } = require("./commands");
 
 const program = new Command();
@@ -19,13 +19,14 @@ function cli() {
     .action(quickstart);
 
   program.command('follow')
+    .description('Follow twtxt feed')
     .argument('<nick>', 'Nick of twtxt user')
     .argument('<url>', 'URL of twtxt blog')
     .action((nick, url) => follow(nick, url));
 
   program.command('publish')
-    .argument('<text...>', 'Text of your twt')
     .description('Add new twt')
+    .argument('<text...>', 'Text of your twt')
     .action((text) => {
       const config = getConfig();
 
@@ -37,11 +38,14 @@ function cli() {
     });
 
   program.command('read')
+    .description('Fetch all following feeds')
     .action(() => read());
 
   program.parse(process.argv);
 }
 
 if (require.main === module) {
-  cli(process.argv);
+  checkUpdates().then(() => {
+    cli(process.argv);
+  });
 }

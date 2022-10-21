@@ -1,5 +1,7 @@
 const childProcess = require("child_process");
 const moment = require("moment");
+const axios = require("axios");
+const packageData = require('../package.json');
 
 /**
  * Get current system username
@@ -39,8 +41,19 @@ function hook(command) {
   });
 }
 
+async function checkUpdates() {
+  const result = await axios.get('https://registry.npmjs.org/twtxt-cli');
+  const data = result.data
+  const latest = data && data['dist-tags'] && data['dist-tags'].latest;
+  const current = packageData.version;
+  if (current !== latest) {
+    console.log(`You version (${current}) is outdated. Install actual version: ${latest} with command 'npm install -g twtxt-cli'`)
+  }
+}
+
 module.exports = {
   hook,
+  checkUpdates,
   parseTimeline,
   getUserHome,
   getUserName,

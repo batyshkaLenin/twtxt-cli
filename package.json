@@ -1,6 +1,6 @@
 {
   "name": "twtxt-cli",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "twtxt command line interface",
   "main": "src/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "twtxt"
   ],
   "bin": {
-    "twtxt": "src/index.js"
+    "twtxt-cli": "src/index.js"
   },
   "author": "Alexandr Sidorenko",
   "license": "MIT",
