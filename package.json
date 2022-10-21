@@ -1,6 +1,6 @@
 {
   "name": "twtxt-cli",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "twtxt command line interface",
   "main": "src/index.js",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,8 @@
     "debug": "^4.3.4",
     "moment": "^2.29.4",
     "publish": "^0.6.0"
+  },
+  "devDependencies": {
+    "jest": "^29.2.1"
   }
 }

@@ -24,15 +24,17 @@ const packageData = require("../package.json");
 
 /**
  * Get configuration file path
+ * @param {string} [customName]
  * @returns {string}
  */
-function getConfigPath() {
+function getConfigPath(customName) {
   const configFileName = 'twtxt-cli.json';
   const userHome = getUserHome();
-  const configPath = `${userHome}/.config/${configFileName}`
+  const configPath = `${userHome}/.config/${customName || configFileName}`
   if (!fs.existsSync(configPath)) {
     fs.mkdirSync(`${userHome}/.config/`, { recursive: true });
     fs.writeFileSync(configPath, JSON.stringify({}))
+    updateConfig({});
   }
   return configPath;
 }
@@ -40,9 +42,10 @@ function getConfigPath() {
 /**
  * Update config file
  * @param {Partial<Config>} config
+ * @param {string} [customName]
  * @returns {Config}
  */
-function updateConfig(config) {
+function updateConfig(config, customName) {
   const defaults = {
     nick: getUserName(),
     location: `${getUserHome()}/twtxt.txt`,
@@ -54,7 +57,7 @@ function updateConfig(config) {
     description: '',
   };
   try {
-    const configPath = getConfigPath();
+    const configPath = getConfigPath(customName);
     const newConfig = { ...defaults, ...config};
     fs.writeFileSync(configPath, JSON.stringify(newConfig))
     return newConfig
@@ -65,10 +68,11 @@ function updateConfig(config) {
 
 /**
  * Get actual config
+ * @param {string} [customName]
  * @returns {Config}
  */
-function getConfig() {
-  const configPath = getConfigPath();
+function getConfig(customName) {
+  const configPath = getConfigPath(customName);
   try {
     const file = fs.readFileSync(configPath)
     return JSON.parse(file.toString());
@@ -102,4 +106,5 @@ module.exports = {
   headOfFeed,
   updateConfig,
   getConfig,
+  getConfigPath,
 };
