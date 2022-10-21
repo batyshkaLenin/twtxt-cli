@@ -1,7 +1,6 @@
 const moment = require("moment");
-const packageData = require("../../package.json");
 const fs = require("fs");
-const { getConfig } = require("../config");
+const { getConfig, headOfFeed } = require("../config");
 const { parseTimeline } = require('../utils');
 
 /**
@@ -39,23 +38,7 @@ function publish(text) {
     .map(({ date, text }, index) => `${date.format()}\t${text}${timeline.length - 1 !== index ? '\n' : ''}`)
     .join('');
 
-  const utilName = `${packageData.name}-${packageData.version}`;
-  const meta = `# Created with ${utilName}
-#
-# You can install the same client as this user with the command 'npm install -g twtxt-cli'.
-# Learn more about twtxt-cli https://github.com/batyshkaLenin/twtxt-cli
-#
-# nick        = ${config.nick}
-# url         = ${config.url}
-# avatar      = ${config.avatar || ''}
-# description = ${config.description || `${utilName} enjoyer`}
-#
-# following   = ${config.following.length}
-#
-#
-${config.following.map(({ nick, url }) => `# follow = ${nick} ${url}`).join('\n')}
-#
-\n`
+  const meta = headOfFeed();
   fs.writeFileSync(config.location, Buffer.from(`${meta}${newTimeline}`));
 }
 
