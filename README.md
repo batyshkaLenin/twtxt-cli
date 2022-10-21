@@ -10,13 +10,15 @@ Usage: twtxt-cli [options] [command]
 CLI for twtxt
 
 Options:
-  -V, --version        output the version number
-  -h, --help           display help for command
+  -V, --version           output the version number
+  -h, --help              display help for command
 
 Commands:
-  quickstart           A short configuration that will allow you to work with the program
-  follow <nick> <url>  Follow twtxt feed
-  publish <text...>    Add new twt
-  read                 Fetch all following feeds
-  help [command]       display help for command
+  quickstart              A short configuration that will allow you to work with the program
+  follow <nick> <url>     Follow twtxt feed
+  unfollow <nick or url>  Unfollow twtxt feed
+  publish <text...>       Add new twt
+  read                    Fetch all following feeds
+  following [options]     List of users you are subscribed
+  help [command]          display help for command
 ```
