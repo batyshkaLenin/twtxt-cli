@@ -1,8 +1,11 @@
 {
   "name": "twtxt-cli",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "twtxt command line interface",
   "main": "src/index.js",
+  "engines": {
+    "node": "16.18.0"
+  },
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +20,10 @@
   "bin": {
     "twtxt-cli": "src/index.js"
   },
-  "author": "Alexandr Sidorenko",
+  "author": {
+    "name": "Alexandr Sidorenko",
+    "url": "https://alexandr-sidorenko.me/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/batyshkaLenin/twtxt-cli/issues"
