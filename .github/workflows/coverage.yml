@@ -1,5 +1,13 @@
-steps:
-  - name: Test & publish code coverage
-    uses: paambaati/codeclimate-action@v3.2.0
-    env:
-      CC_TEST_REPORTER_ID: ${{secrets.COVERAGE_REPORTER_ID}}
+name: CodeClimate Coverage
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.2.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.COVERAGE_REPORTER_ID}}
