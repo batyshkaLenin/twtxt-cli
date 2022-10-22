@@ -1,6 +1,6 @@
 {
   "name": "twtxt-cli",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "twtxt command line interface",
   "main": "src/index.js",
   "engines": {
@@ -41,6 +41,7 @@
   "devDependencies": {
     "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-jest": "^27.1.3",
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
