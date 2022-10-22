@@ -1,6 +1,7 @@
-const fs = require("fs");
-const { getUserHome, getUserName } = require("./utils");
-const packageData = require("../package.json");
+const fs = require('fs');
+const { getUserHome } = require('./utils');
+const packageData = require('../package.json');
+const { CONFIG_DEFAULTS } = require('./constants');
 
 /**
  * @typedef FollowItem
@@ -30,11 +31,10 @@ const packageData = require("../package.json");
 function getConfigPath(customName) {
   const configFileName = 'twtxt-cli.json';
   const userHome = getUserHome();
-  const configPath = `${userHome}/.config/${customName || configFileName}`
+  const configPath = `${userHome}/.config/${customName || configFileName}`;
   if (!fs.existsSync(configPath)) {
     fs.mkdirSync(`${userHome}/.config/`, { recursive: true });
-    fs.writeFileSync(configPath, JSON.stringify({}))
-    updateConfig({});
+    fs.writeFileSync(configPath, JSON.stringify({}));
   }
   return configPath;
 }
@@ -46,23 +46,13 @@ function getConfigPath(customName) {
  * @returns {Config}
  */
 function updateConfig(config, customName) {
-  const defaults = {
-    nick: getUserName(),
-    location: `${getUserHome()}/twtxt.txt`,
-    url: '',
-    pre_hook: '',
-    post_hook: 'echo Twt added',
-    following: [],
-    avatar: '',
-    description: '',
-  };
   try {
     const configPath = getConfigPath(customName);
-    const newConfig = { ...defaults, ...config};
-    fs.writeFileSync(configPath, JSON.stringify(newConfig))
-    return newConfig
+    const newConfig = { ...CONFIG_DEFAULTS, ...config };
+    fs.writeFileSync(configPath, JSON.stringify(newConfig));
+    return newConfig;
   } catch (e) {
-    throw Error('Error of read config')
+    throw Error('Error of read config');
   }
 }
 
@@ -74,10 +64,10 @@ function updateConfig(config, customName) {
 function getConfig(customName) {
   const configPath = getConfigPath(customName);
   try {
-    const file = fs.readFileSync(configPath)
+    const file = fs.readFileSync(configPath);
     return JSON.parse(file.toString());
   } catch (e) {
-    throw Error('Error of read config')
+    throw Error('Error of read config');
   }
 }
 
@@ -97,9 +87,11 @@ function headOfFeed() {
 # following   = ${config.following.length}
 #
 #
-${config.following.map(({ nick, url }) => `# follow = ${nick} ${url}`).join('\n')}
+${config.following
+    .map(({ nick, url }) => `# follow = ${nick} ${url}`)
+    .join('\n')}
 #
-\n`
+\n`;
 }
 
 module.exports = {

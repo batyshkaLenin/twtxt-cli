@@ -1,4 +1,4 @@
-const { getConfig, updateConfig } = require("../config");
+const { getConfig, updateConfig } = require('../config');
 
 /**
  * Unfollow user feed
@@ -8,7 +8,7 @@ const { getConfig, updateConfig } = require("../config");
 function unfollow(nickOrUrl) {
   const config = getConfig();
 
-  const newFollowingList = config.following.filter(item => item.url !== nickOrUrl || item.nick !== nickOrUrl);
+  const newFollowingList = config.following.filter((item) => item.url !== nickOrUrl || item.nick !== nickOrUrl);
 
   if (config.following.length === newFollowingList.length) {
     console.log(`You were not subscribed to a user's feed ${nickOrUrl}

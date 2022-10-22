@@ -1,6 +1,6 @@
-const moment = require("moment");
-const fs = require("fs");
-const { getConfig, headOfFeed } = require("../config");
+const moment = require('moment');
+const fs = require('fs');
+const { getConfig, headOfFeed } = require('../config');
 const { parseTimeline } = require('../utils');
 
 /**
@@ -10,26 +10,27 @@ const { parseTimeline } = require('../utils');
 function getCurrentTimeline() {
   const config = getConfig();
   const currentTimelineText = fs.readFileSync(config.location).toString();
-  return parseTimeline(currentTimelineText)
+  return parseTimeline(currentTimelineText);
 }
 
 /**
  * Publish new twt
- * @param {string} text
+ * @param {string} message
  * @returns {void}
  */
-function publish(text) {
+function publish(message) {
   const MAX_CHARS = 140;
 
-  if (!text) throw Error('Empty message')
+  if (!message) throw Error('Empty message');
 
-  if (text.length > MAX_CHARS) throw Error('Too long message')
+  if (message.length > MAX_CHARS) throw Error('Too long message');
 
   const config = getConfig();
 
   const timeline = getCurrentTimeline();
+
   timeline.push({
-    text,
+    text: message.join(' '),
     date: moment(),
   });
 
@@ -39,6 +40,7 @@ function publish(text) {
     .join('');
 
   const meta = headOfFeed();
+
   fs.writeFileSync(config.location, Buffer.from(`${meta}${newTimeline}`));
 }
 

@@ -4,55 +4,50 @@ const { Command } = require('commander');
 const packageData = require('../package.json');
 const { getConfig } = require('./config');
 const { hook, checkUpdates } = require('./utils');
-const { quickstart, read, follow, unfollow, publish, following } = require("./commands");
+const { quickstart, read, follow, unfollow, publish, following } = require('./commands');
 
-const program = new Command();
+const program = new Command('twtxt-cli');
 
 function cli() {
+  program.name(packageData.name).description('CLI for twtxt').version(packageData.version);
+
+  program.command('quickstart').description('a short configuration that will allow you to work with the program').action(quickstart);
+
   program
-    .name(packageData.name)
-    .description('CLI for twtxt')
-    .version(packageData.version);
-
-  program.command('quickstart')
-    .description('A short configuration that will allow you to work with the program')
-    .action(quickstart);
-
-  program.command('follow')
-    .description('Follow twtxt feed')
+    .command('follow')
+    .description('follow twtxt feed')
     .argument('<nick>', 'Nick of twtxt user')
     .argument('<url>', 'URL of twtxt blog')
     .action(follow);
 
-  program.command('unfollow')
-    .description('Unfollow twtxt feed')
-    .argument('<nick or url>', 'Nick or url of twtxt user')
-    .action(unfollow);
+  program.command('unfollow').description('unfollow twtxt feed').argument('<nick or url>', 'nick or url of twtxt user').action(unfollow);
 
-  program.command('publish')
-    .description('Add new twt')
-    .argument('<text...>', 'Text of your twt')
-    .action((text) => {
+  program
+    .command('publish')
+    .description('add new post in your feed')
+    .argument('<text...>', 'text of your twt')
+    .hook('preAction', () => {
       const config = getConfig();
 
       if (config.pre_hook) {
         hook(config.pre_hook);
       }
-
-      publish(text.join(' '))
+    })
+    .hook('postAction', () => {
+      const config = getConfig();
 
       if (config.post_hook) {
         hook(config.post_hook);
       }
-    });
+    })
+    .action(publish);
 
-  program.command('read')
-    .description('Fetch all following feeds')
-    .action(read);
+  program.command('read').description('fetch all following feeds').action(read);
 
-  program.command('following')
+  program
+    .command('following')
     .option('-b, --backfollow', 'display backfollow status')
-    .description('List of users you are subscribed')
+    .description('list of users you are subscribed')
     .action(following);
 
   program.parse(process.argv);

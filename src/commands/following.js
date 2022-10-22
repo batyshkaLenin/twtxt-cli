@@ -1,15 +1,17 @@
-const { getConfig } = require("../config");
-const axios = require("axios");
+const axios = require('axios');
 const Promise = require('bluebird');
-
-const LINK_REGEXP = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
+const { getConfig } = require('../config');
+const { LINK_REGEXP } = require('../constants');
 
 async function getBackFollowing(url, readableUser) {
   try {
     const result = await axios.get(readableUser);
-    const followingList = result.data.split('\n').filter(i => i.includes('follow') && i.includes('http')).flatMap(i => i.match(LINK_REGEXP))
-    return followingList.includes(url)
-  } catch {
+    const followingList = result.data
+      .split('\n')
+      .filter((i) => i.includes('follow') && i.includes('http'))
+      .flatMap((i) => i.match(LINK_REGEXP));
+    return followingList.includes(url);
+  } catch (_) {
     return false;
   }
 }
@@ -22,7 +24,7 @@ async function following({ backfollow }) {
       console.log(`${user.nick}\t${user.url}${backFollowing ? ' (followed you)' : ''}\n`);
     });
   } else {
-    console.log(config.following.map(user => `${user.nick}\t${user.url}`).join('\n'));
+    console.log(config.following.map((user) => `${user.nick}\t${user.url}`).join('\n'));
   }
 }
 

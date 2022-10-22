@@ -1,6 +1,6 @@
-const childProcess = require("child_process");
-const moment = require("moment");
-const axios = require("axios");
+const childProcess = require('child_process');
+const moment = require('moment');
+const axios = require('axios');
 const packageData = require('../package.json');
 
 /**
@@ -16,7 +16,7 @@ function getUserName() {
  * @returns {string}
  */
 function getUserHome() {
-  return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+  return process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
 }
 
 /**
@@ -32,9 +32,9 @@ function getUserHome() {
  * @returns {TimeLine[]}
  */
 function parseTimeline(txt) {
-  const splittedTimeline = txt.split('\n').filter(str => str[0] !== '#');
-  const timeline = splittedTimeline.map(i => i.split('\t')).filter(i => i.length === 2);
-  return timeline.map(i => ({ text: i[1], date: moment(i[0]) }))
+  const splittedTimeline = txt.split('\n').filter((str) => str[0] !== '#');
+  const timeline = splittedTimeline.map((i) => i.split('\t')).filter((i) => i.length === 2);
+  return timeline.map((i) => ({ text: i[1], date: moment(i[0]) }));
 }
 
 /**
@@ -43,7 +43,7 @@ function parseTimeline(txt) {
  * @returns {void}
  */
 function hook(command) {
-  childProcess.exec(command, function (error, stdout) {
+  childProcess.exec(command, (error, stdout) => {
     if (error) {
       console.error(error.stack);
       console.error(`Error code: ${error.code}`);
@@ -60,13 +60,14 @@ function hook(command) {
 async function checkUpdates() {
   try {
     const result = await axios.get('https://registry.npmjs.org/twtxt-cli');
-    const data = result.data
+    const { data } = result;
     const latest = data && data['dist-tags'] && data['dist-tags'].latest;
     const current = packageData.version;
     if (current !== latest) {
-      console.log(`You version (${current}) is outdated. Install actual version: ${latest} with command 'npm install -g twtxt-cli'`)
+      console.log(`You version (${current}) is outdated. Install actual version: ${latest} with command 'npm install -g twtxt-cli'`);
     }
-  } catch {
+  } catch (_) {
+    console.log('Check updates failed');
   }
 }
 
