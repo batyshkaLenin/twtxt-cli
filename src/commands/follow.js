@@ -8,7 +8,7 @@ const { LINK_REGEXP } = require('../constants');
  * @returns {void}
  */
 function follow(nick, url) {
-  if (LINK_REGEXP.test(url)) {
+  if (!LINK_REGEXP.test(url)) {
     throw Error('URL validation failed');
   }
 
