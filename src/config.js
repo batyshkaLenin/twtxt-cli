@@ -71,6 +71,10 @@ function getConfig(customName) {
   }
 }
 
+/**
+ * Get feed head
+ * @returns {string}
+ */
 function headOfFeed() {
   const utilName = `${packageData.name}-${packageData.version}`;
   const config = getConfig();
