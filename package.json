@@ -1,6 +1,6 @@
 {
   "name": "twtxt-cli",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "twtxt command line interface",
   "main": "src/index.js",
   "engines": {
