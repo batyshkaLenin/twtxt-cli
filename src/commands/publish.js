@@ -19,11 +19,7 @@ function getCurrentTimeline() {
  * @returns {void}
  */
 function publish(message) {
-  const MAX_CHARS = 140;
-
   if (!message) throw Error('Empty message');
-
-  if (message.length > MAX_CHARS) throw Error('Too long message');
 
   const config = getConfig();
 
