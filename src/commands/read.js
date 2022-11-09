@@ -15,7 +15,7 @@ async function getFeed() {
   const feed = (
     await Promise.map(following, async ({ nick, url }) => {
       const result = await axios.get(url);
-      return parseTimeline(result.data).map((i) => ({ ...i, nick, url }));
+      return parseTimeline(result.data, url).map((i) => ({ ...i, nick, url }));
     }, { concurrency: 5 })
   ).flatMap((i) => i);
 

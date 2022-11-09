@@ -20,6 +20,7 @@ const { CONFIG_DEFAULTS } = require('./constants');
  * @property {string} location
  * @property {string} pre_hook
  * @property {string} post_hook
+ * @property {number} limit
  * @property {FollowItem[]} following
  */
 

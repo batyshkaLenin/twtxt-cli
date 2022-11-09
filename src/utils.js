@@ -2,6 +2,7 @@ const childProcess = require('child_process');
 const moment = require('moment');
 const axios = require('axios');
 const packageData = require('../package.json');
+const { createHash } = require('./extensions/hash');
 
 /**
  * Get current system username
@@ -24,17 +25,26 @@ function getUserHome() {
  * @type {Record<string, unknown>}
  * @property {moment.Moment} date
  * @property {string} text
+ * @property {string} hash
  */
 
 /**
  *
  * @param {string} txt
+ * @param {string} [url]
  * @returns {TimeLine[]}
  */
-function parseTimeline(txt) {
+function parseTimeline(txt, url) {
   const splittedTimeline = txt.split('\n').filter((str) => str[0] !== '#');
   const timeline = splittedTimeline.map((i) => i.split('\t')).filter((i) => i.length === 2);
-  return timeline.map((i) => ({ text: i[1], date: moment(i[0]) }));
+  return timeline.map(([date, text]) => {
+    /** @type {Partial<TimeLine>} */
+    const result = { text, date: moment(date) };
+    if (url) {
+      result.hash = createHash(url, date, text);
+    }
+    return result;
+  });
 }
 
 /**

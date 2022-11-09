@@ -22,6 +22,7 @@ const CONFIG_DEFAULTS = {
   following: [],
   avatar: '',
   description: '',
+  limit: 30,
 };
 
 module.exports = {

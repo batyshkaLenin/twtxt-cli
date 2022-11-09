@@ -6,7 +6,8 @@ describe('Utils test', () => {
     const timelineText = `${moment().format()}\tTest message 1
 ${moment().format()}\tTest message 2`;
 
-    const timeline = parseTimeline(timelineText);
+    const timeline = parseTimeline(timelineText, 'https://example.com/twtxt.txt');
+    console.log(timeline);
 
     expect(timeline.length).toBe(2);
 

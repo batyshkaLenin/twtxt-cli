@@ -24,32 +24,35 @@ function quickstart() {
   console.log(
     `Hi, ${current.nick || defaultName}, this is the configuration assistant for twtxt-cli. After a little configuration you will be able to start using this client.`,
   );
-  rl.question(`➤ Please enter your desired nick: (${current.nick || defaultName}) `, (nick) => {
+  rl.question(`➤ Your desired nick: (${current.nick || defaultName}) `, (nick) => {
     const defaultLocation = current.location || `${defaultHomeDir}/twtxt.txt`;
-    rl.question(`➤ Please enter the desired location for your twtxt file: (${defaultLocation}) `, (location) => {
-      rl.question(`➤ Please enter url where you host your blog: (${current.url || 'default: empty'}) `, (url) => {
+    rl.question(`➤ Desired location for your twtxt file: (${defaultLocation}) `, (location) => {
+      rl.question(`➤ Url where you host your blog: (${current.url || 'default: empty'}) `, (url) => {
         const utilName = `${packageData.name}-${packageData.version}`;
-        rl.question(`➤ Please enter description of your blog: (${current.description || `${utilName} enjoyer`}) `, (description) => {
-          rl.question(`➤ Please enter url where you host your avatar: (${current.avatar || 'default: empty'}) `, (avatar) => {
-            rl.question(`➤ Please enter the command to be executed before publishing: (${current.pre_hook || 'default: empty'}) `, (preHook) => {
-              rl.question(`➤ Please enter the command to be executed after publishing: (${current.post_hook || 'default: empty'}) `, (postHook) => {
-                const config = {
-                  nick: nick || current.nick,
-                  location: location || current.location,
-                  url: url || current.url,
-                  description: description || current.description,
-                  avatar: avatar || current.avatar,
-                  pre_hook: preHook || current.pre_hook,
-                  post_hook: postHook || current.post_hook,
-                };
+        rl.question(`➤ Description of your blog: (${current.description || `${utilName} enjoyer`}) `, (description) => {
+          rl.question(`➤ Url where you host your avatar: (${current.avatar || 'default: empty'}) `, (avatar) => {
+            rl.question(`➤ Command to be executed before publishing: (${current.pre_hook || 'default: empty'}) `, (preHook) => {
+              rl.question(`➤ Command to be executed after publishing: (${current.post_hook || 'default: empty'}) `, (postHook) => {
+                rl.question(`➤ Message limit in the feed : (${current.limit || 'default: 30'}) `, (limit) => {
+                  const config = {
+                    nick: nick || current.nick,
+                    location: location || current.location,
+                    url: url || current.url,
+                    description: description || current.description,
+                    avatar: avatar || current.avatar,
+                    pre_hook: preHook || current.pre_hook,
+                    post_hook: postHook || current.post_hook,
+                    limit: limit || 30,
+                  };
 
-                const newConfig = updateConfig(config);
+                  const newConfig = updateConfig(config);
 
-                if (!fs.existsSync(newConfig.location)) {
-                  fs.writeFileSync(newConfig.location, headOfFeed());
-                }
-                console.log('✓ Congrats! Configuration successfully completed!');
-                rl.close();
+                  if (!fs.existsSync(newConfig.location)) {
+                    fs.writeFileSync(newConfig.location, headOfFeed());
+                  }
+                  console.log('✓ Congrats! Configuration successfully completed!');
+                  rl.close();
+                });
               });
             });
           });

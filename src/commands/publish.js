@@ -10,7 +10,7 @@ const { parseTimeline } = require('../utils');
 function getCurrentTimeline() {
   const config = getConfig();
   const currentTimelineText = fs.readFileSync(config.location).toString();
-  return parseTimeline(currentTimelineText);
+  return parseTimeline(currentTimelineText, config.url);
 }
 
 /**
