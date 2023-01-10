@@ -1,14 +1,12 @@
 {
   "env": {
     "commonjs": true,
-    "es2021": true,
     "jest/globals": true
   },
   "extends": [
     "airbnb-base"
   ],
   "plugins": [
-    "no-loops",
     "jest"
   ],
   "rules": {
@@ -17,7 +15,6 @@
     "object-curly-newline": "off",
     "no-console": "off",
     "no-param-reassign": ["error", { "props": false }],
-    "no-loops/no-loops": 2,
     "max-len": [
       "error",
       140,
