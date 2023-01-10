@@ -27,13 +27,19 @@ describe('Config tests', () => {
 
   test('Get config', () => {
     const config = getConfig(customConfigName);
-    expect(Object.keys(config).length).toBe(8);
+    expect(Object.keys(config).length).toBe(9);
     Object.keys(config).forEach((key) => {
-      if (key !== 'following') {
-        expect(typeof config[key]).toBe('string');
-      } else {
-        expect(typeof config[key]).toBe('object');
-        expect(typeof config[key].length).toBe('number');
+      switch (key) {
+        case 'following':
+          expect(typeof config[key]).toBe('object');
+          expect(typeof config[key].length).toBe('number');
+          break;
+        case 'limit':
+          expect(typeof config[key]).toBe('number');
+          break;
+        default:
+          expect(typeof config[key]).toBe('string');
+          break;
       }
     });
   });
