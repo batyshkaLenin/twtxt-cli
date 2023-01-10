@@ -10,17 +10,21 @@ function base32(payload) {
   let value = 0;
   let output = '';
 
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < view.byteLength; i++) {
-    value = (value << 8) | view.getUint8(i)
-    bits += 8
+    // eslint-disable-next-line no-bitwise
+    value = (value << 8) | view.getUint8(i);
+    bits += 8;
 
     while (bits >= 5) {
+      // eslint-disable-next-line no-bitwise
       output += alphabet[(value >>> (bits - 5)) & 31];
       bits -= 5;
     }
   }
 
   if (bits > 0) {
+    // eslint-disable-next-line no-bitwise
     output += alphabet[(value << (5 - bits)) & 31];
   }
 

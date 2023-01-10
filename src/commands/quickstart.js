@@ -2,7 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const packageData = require('../../package.json');
 const { updateConfig, headOfFeed,
-  getConfig
+  getConfig,
 } = require('../config');
 const { getUserHome, getUserName } = require('../utils');
 
