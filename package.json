@@ -34,7 +34,7 @@
     "axios": "^1.2.2",
     "blake2": "^4.1.1",
     "bluebird": "^3.7.2",
-    "commander": "^9.4.1",
+    "commander": "^10.0.0",
     "debug": "^4.3.4",
     "luxon": "^3.2.1",
     "moment": "^2.29.4",
