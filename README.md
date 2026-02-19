@@ -1,6 +1,6 @@
 # twtxt-cli
 
-![npm](https://img.shields.io/npm/v/twtxt-cli) ![npm](https://img.shields.io/npm/dw/twtxt-cli) [![Maintainability](https://api.codeclimate.com/v1/badges/b11888f40b1ce3623fac/maintainability)](https://codeclimate.com/github/batyshkaLenin/twtxt-cli/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/b11888f40b1ce3623fac/test_coverage)](https://codeclimate.com/github/batyshkaLenin/twtxt-cli/test_coverage)
+![npm](https://img.shields.io/npm/v/twtxt-cli) ![npm](https://img.shields.io/npm/dw/twtxt-cli) [![Maintainability](https://qlty.sh/gh/batyshkaLenin/projects/twtxt-cli/maintainability.svg)](https://qlty.sh/gh/batyshkaLenin/projects/twtxt-cli) [![Code Coverage](https://qlty.sh/gh/batyshkaLenin/projects/twtxt-cli/coverage.svg)](https://qlty.sh/gh/batyshkaLenin/projects/twtxt-cli)
 
 ---
 
